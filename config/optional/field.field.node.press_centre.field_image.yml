@@ -1,0 +1,42 @@
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image
+    - node.type.press_centre
+  enforced:
+    module:
+      - site_press_centre
+  module:
+    - image
+_core:
+  default_config_hash: WlJ6hgXYyt0w2pZNxCKIhDNRx-9tnepYn8T5BTwp2Jk
+id: node.press_centre.field_image
+field_name: field_image
+entity_type: node
+bundle: press_centre
+label: Изображение
+description: 'Изображение обложки материала в каталоге.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: images/press-centre
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: '5 MB'
+  max_resolution: 1920x1080
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

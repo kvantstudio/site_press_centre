@@ -1,0 +1,26 @@
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.press_centre
+  enforced:
+    module:
+      - site_press_centre
+  module:
+    - text
+_core:
+  default_config_hash: eEu1zVXz4C6jjCKbeftHI_MKS14S0VgWSXGA6rNWIqs
+id: node.press_centre.body
+field_name: body
+entity_type: node
+bundle: press_centre
+label: Содержимое
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

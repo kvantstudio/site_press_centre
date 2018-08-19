@@ -1,0 +1,33 @@
+{% if not page %}
+<article class="node">
+    {% if field_image_view_teaser %}
+    <div class="node__image node__image_teaser">
+        {% if display_submitted %}
+        <div class="node__meta node__meta_teaser">{{ date }}</div>{% endif %}
+        <a href="{{ url }}" rel="bookmark">{{ content.field_image }}</a>
+    </div>
+    {% else %} {% if display_submitted %}
+    <div class="node__meta node__meta_teaser-none-image">{{ date }}</div>{% endif %} {% endif %}
+    <div{{ title_attributes.addClass( 'node__title node__title_teaser') }}>
+        <a class="node__title-link" href="{{ url }}" rel="bookmark">{{ label }}</a>
+        </div>
+        {% if content.body['#object'].body.summary %}
+        <div class="node__summary node__summary_teaser">{{ content.body['#object'].body.summary|striptags|slice(0,150) }}</div>
+        {% endif %}
+</article>
+{% endif %} {% if page %}
+<article class="node">
+    {% if display_submitted %}
+    <div class="node__meta node__meta_full">{{ date }}</div>{% endif %}
+    <div{{ content_attributes.addClass( 'node__content', 'clearfix') }}>
+        {% if field_summary_view_page %}
+        <div class="node__summary node__summary_full">{{ content.body['#object'].body.summary }}</div>
+        {% endif %} {% if field_image_view_page and image_uri %}
+        <div class="node__image node__image_full">
+            {{ content.field_image }}
+        </div>
+        {% endif %}
+        <div class="node__body">{{ content.body }}</div>
+        </div>
+</article>
+{{ site_press_centre_materials }} {% endif %}

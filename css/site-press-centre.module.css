@@ -1,0 +1,132 @@
+.site-press-centre {
+    display: block;
+}
+
+.site-press-centre__item {
+    margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 375px) {
+    .site-press-centre {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .site-press-centre__item {
+        margin: 0 0.5rem 1rem 0.5rem;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .site-press-centre__item {
+        width: 32%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .site-press-centre__item {
+        width: 23%;
+    }
+}
+
+.site-press-centre .field--type-image img {
+    margin: 0;
+}
+
+.site-press-centre .node .field--type-image {
+    float: none;
+    margin: 0;
+}
+
+.node__image_teaser {
+    -webkit-transition: ease 0.5s;
+    -moz-transition: ease 0.5s;
+    -o-transition: ease 0.5s;
+    transition: ease 0.5s;
+}
+
+.node__image_teaser:hover {
+    opacity: 0.8;
+}
+
+.node__meta_teaser {
+    font-size: 0.875em !important;
+    font-weight: 300;
+    opacity: .85;
+    padding: 10px;
+    position: absolute;
+    background: black;
+    color: #ffffff !important;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin: 10px;
+}
+
+.node__meta.node__meta_full {
+    margin-bottom: 1rem;
+    color: #777;
+    font-size: 0.7em;
+}
+
+.node__meta_teaser-none-image {
+    font-size: 0.875em;
+    opacity: 0.6;
+}
+
+.node__title_teaser {
+    font-size: 1.2em;
+}
+
+.node__summary_teaser {
+    font-size: 0.875em;
+    margin-top: 1rem;
+}
+
+.node__summary_full {
+    margin-bottom: 30px;
+}
+
+.node__image_full {
+    margin-bottom: 30px;
+}
+
+.node-materials {
+    padding-top: 2em;
+}
+
+.node-materials__title {
+    font-weight: 500;
+}
+
+.node-materials__item {
+    width: 100%;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
+    float: left;
+    margin-bottom: 1em;
+}
+
+.node-materials__title {
+    margin-bottom: 1.5em;
+}
+
+.node-materials__created {
+    font-size: 0.625em;
+    color: #999;
+    padding: 1em 0;
+}
+
+
+/* Медиа запросы. */
+
+@media (min-width: 768px) {
+    .node-materials__item {
+        width: 25%;
+        margin-right: 1em;
+    }
+}

@@ -1,0 +1,26 @@
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_file
+    - node.type.press_centre
+  module:
+    - file
+id: node.press_centre.field_file
+field_name: field_file
+entity_type: node
+bundle: press_centre
+label: 'Прикрепленные файлы'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: attached-files
+  file_extensions: 'txt doc docx xls xlsx docm odt rtf pdf jpg jpeg png tiff'
+  max_filesize: ''
+  description_field: true
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

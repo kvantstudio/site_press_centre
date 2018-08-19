@@ -1,0 +1,27 @@
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_node
+    - node.type.press_centre
+id: node.press_centre.field_node
+field_name: field_node
+entity_type: node
+bundle: press_centre
+label: 'Ссылка на материал пресс-центра'
+description: 'Блок с ссылками отображается под текущим материалом.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      press_centre: press_centre
+    sort:
+      field: created
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: press_centre
+field_type: entity_reference

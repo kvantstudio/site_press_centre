@@ -1,0 +1,18 @@
+langcode: ru
+status: true
+dependencies:
+  enforced:
+    module:
+      - site_press_centre
+_core:
+  default_config_hash: McCcHyBr9XoUsjQwY0hcz9FgsjCXC2kYxJqdnUP78Vs
+name: site_press_centre
+label: 'Изображение обложки пресс-центра'
+effects:
+  5b06fdad-8e3a-4f26-bf72-5008b1c55289:
+    uuid: 5b06fdad-8e3a-4f26-bf72-5008b1c55289
+    id: image_scale_and_crop
+    weight: -9
+    data:
+      width: 1140
+      height: 350

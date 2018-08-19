@@ -1,0 +1,7 @@
+site_press_centre.settings:
+  path: '/admin/config/kvantstudio/site-press-centre/settings'
+  defaults:
+    _title: 'Press centre'
+    _form: '\Drupal\site_press_centre\Form\SitePressCentreSettingsForm'            
+  requirements:
+    _permission: 'access administration pages'           

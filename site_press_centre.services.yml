@@ -1,0 +1,10 @@
+services:
+  site_press_centre.taxonomy_breadcrumb:
+    class: Drupal\site_press_centre\Breadcrumb\SitePressCentreTaxonomyBreadcrumbBuilder
+    arguments: ['@entity.manager']
+    tags:
+      - { name: breadcrumb_builder, priority: 3000 }
+  site_press_centre.twig_extension:
+    class: Drupal\site_press_centre\TwigExtension\SitePressCentreTwigExtension
+    tags:
+      - { name: twig.extension }

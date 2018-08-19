@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * @file
+ * Install file for the site_press_centre.module.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Implements hook_install().
+ */
+function site_press_centre_install() {
+    // Создает термин НОВОСТИ.
+    $term = Term::create([
+        'name' => 'Новости',
+        'vid' => 'site_press_centre',
+    ]);
+    $term->save();
+
+    // Создает термин СТАТЬИ.
+    $term = Term::create(array(
+        'parent' => array(),
+        'name' => 'Статьи',
+        'vid' => 'site_press_centre',
+    ));
+    $term->save();
+}
+
+/**
+ * Update database structure.
+ */
+function site_press_centre_update_8101(&$sandbox) {
+    // Записывает значения в конфигурацию.
+    $config = \Drupal::service('config.factory')->getEditable('site_press_centre.settings');
+    $config->set('url', 'press-centr');
+    $config->save();
+    return t('Update successfully.');
+}
+
+/**
+ * Update database structure.
+ */
+function site_press_centre_update_8102(&$sandbox) {
+    // Изменяем имя словаря для хранения категорий.
+    $vid = 'site_press_centre';
+    $name = 'Новости и статьи';
+    $vocabularies = \Drupal\taxonomy\Entity\Vocabulary::loadMultiple();
+    if (!isset($vocabularies[$vid])) {
+      $vocabulary = \Drupal\taxonomy\Entity\Vocabulary::create(array(
+            'vid' => $vid,
+            'name' => $name,
+      ));
+      $vocabulary->save();
+    }
+
+    // Обновляем название словаря в текущих терминах.
+    $query = \Drupal::entityQuery('taxonomy_term');
+    $query->condition('vid', 'press_centre');
+    $tids = $query->execute();
+    foreach ($tids as $tid) {
+        $term = \Drupal\taxonomy\Entity\Term::load($tid);
+        if (!empty($term)) {
+          $term->vid = $vid;
+          $term->save();
+        }
+    }
+
+    // Удаляем старый словарь.
+    $vocabulary = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load('press_centre')->delete();
+
+    return t('Update successfully.');
+}

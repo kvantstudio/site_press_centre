@@ -1,0 +1,62 @@
+langcode: ru
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.press_centre.body
+    - field.field.node.press_centre.field_category
+    - field.field.node.press_centre.field_file
+    - field.field.node.press_centre.field_image
+    - field.field.node.press_centre.field_image_view_teaser
+    - field.field.node.press_centre.field_node
+    - field.field.node.press_centre.field_summary_view_page
+    - field.field.node.press_centre.field_tags
+    - node.type.press_centre
+    - responsive_image.styles.wide
+  enforced:
+    module:
+      - site_press_centre
+  module:
+    - responsive_image
+    - text
+    - user
+_core:
+  default_config_hash: CAFlD7Ql7yVgTvNFJ81lX4GzMMlQ_rVn08M-5wJ70O4
+id: node.press_centre.teaser
+targetEntityType: node
+bundle: press_centre
+mode: teaser
+content:
+  body:
+    type: text_default
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_image:
+    type: responsive_image
+    weight: 0
+    label: hidden
+    settings:
+      responsive_image_style: wide
+      image_link: ''
+    third_party_settings: {  }
+    region: content
+  field_tags:
+    type: entity_reference_entity_view
+    weight: 3
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_category: true
+  field_file: true
+  field_image_view_teaser: true
+  field_node: true
+  field_summary_view_page: true
+  langcode: true
+  links: true

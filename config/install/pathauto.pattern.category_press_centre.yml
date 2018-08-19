@@ -1,0 +1,27 @@
+langcode: ru
+status: true
+dependencies:
+  enforced:
+    module:
+      - site_press_centre
+  module:
+    - ctools
+    - taxonomy
+_core:
+  default_config_hash: sQFROK2c8uthvyyW0OTSJR9jnMzmzsIPjbghZ2AZuEQ
+id: category_press_centre
+label: 'Категория пресс-центра'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'press-centr/[term:parents]/[term:name]'
+selection_criteria:
+  119dc6ac-50b6-405c-9ebc-0c98088909a9:
+    id: 'entity_bundle:taxonomy_term'
+    bundles:
+      site_press_centre: site_press_centre
+    negate: false
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    uuid: 119dc6ac-50b6-405c-9ebc-0c98088909a9
+selection_logic: and
+weight: -5
+relationships: {  }

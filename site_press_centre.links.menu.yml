@@ -1,0 +1,6 @@
+site_press_centre.settings:
+  title: 'News and articles'
+  description: ''
+  route_name: site_press_centre.settings
+  parent: kvantstudio.admin_index
+  weight: 10

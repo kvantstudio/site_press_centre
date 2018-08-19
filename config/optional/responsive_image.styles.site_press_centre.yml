@@ -1,0 +1,31 @@
+langcode: ru
+status: true
+dependencies:
+  config:
+    - image.style.large
+    - image.style.max_325x325
+    - image.style.max_650x650
+    - image.style.medium
+    - image.style.site_press_centre
+  enforced:
+    module:
+      - site_press_centre
+_core:
+  default_config_hash: 8hP80qIVcMQA9joOTtotH1t1AmBakJnaHqiY-mQsr3s
+id: site_press_centre
+label: 'Изображение обложки пресс-центра'
+image_style_mappings:
+  -
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: 100vw
+      sizes_image_styles:
+        - large
+        - max_325x325
+        - max_650x650
+        - medium
+        - site_press_centre
+breakpoint_group: responsive_image
+fallback_image_style: site_press_centre

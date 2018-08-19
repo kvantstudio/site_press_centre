@@ -1,0 +1,13 @@
+langcode: ru
+status: true
+dependencies:
+  enforced:
+    module:
+      - site_press_centre
+_core:
+  default_config_hash: TOzeV5ccRYxTwFSjlxDWXqlmGJsoBi3dCPYlqcXJWU0
+name: 'Новости и статьи'
+vid: site_press_centre
+description: ''
+hierarchy: 0
+weight: 0

@@ -1,0 +1,26 @@
+langcode: ru
+status: true
+dependencies:
+  enforced:
+    module:
+      - site_press_centre
+  module:
+    - node
+_core:
+  default_config_hash: MhFLoanvF2WeBiJitEOryx97cKcU8YijGHrXL0pCeRE
+id: node_press_centre
+label: 'Материал пресс-центра'
+type: 'canonical_entities:node'
+pattern: 'press-centr/[node:field_category:entity:parents]/[node:field_category:entity]/[node:title]'
+selection_criteria:
+  b35fe46c-0aee-401e-b64a-9992b1c15580:
+    id: node_type
+    bundles:
+      press_centre: press_centre
+    negate: false
+    context_mapping:
+      node: node
+    uuid: b35fe46c-0aee-401e-b64a-9992b1c15580
+selection_logic: and
+weight: -5
+relationships: {  }

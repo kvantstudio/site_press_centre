@@ -1,0 +1,21 @@
+langcode: ru
+status: true
+dependencies:
+  enforced:
+    module:
+      - site_press_centre
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+_core:
+  default_config_hash: pIf3WOvT4zvopMSygN6oW3uZ9rusSGTI7N953fm6s_M
+name: Пресс-центр
+type: press_centre
+description: 'Тип материала, который используется для создания новостей и статей на сайте, для ведения блога.'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

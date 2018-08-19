@@ -1,0 +1,22 @@
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_view_page
+    - node.type.press_centre
+id: node.press_centre.field_image_view_page
+field_name: field_image_view_page
+entity_type: node
+bundle: press_centre
+label: 'Отображать изображение при полном просмотре'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Вкл
+  off_label: Выкл
+field_type: boolean

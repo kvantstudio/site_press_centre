@@ -1,0 +1,32 @@
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags
+    - node.type.press_centre
+    - taxonomy.vocabulary.tags
+  enforced:
+    module:
+      - site_press_centre
+_core:
+  default_config_hash: sDdN2aAoEopQpT712N_slnzwRNjGc1xBHNFLd7GumFU
+id: node.press_centre.field_tags
+field_name: field_tags
+entity_type: node
+bundle: press_centre
+label: Теги
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags: tags
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

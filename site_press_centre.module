@@ -1,0 +1,180 @@
+<?php
+
+/**
+ * @file
+ * Main file for the site_press_centre.module.
+ */
+
+use Drupal\Core\Database\Database;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
+use Drupal\node\Entity\Node;
+
+/**
+ * Implements hook_theme().
+ */
+function site_press_centre_theme($existing, $type, $theme, $path) {
+  return array(
+    'site_press_centre' => array(
+      'variables' => array('content' => NULL),
+      'template' => 'site-press-centre',
+    ),
+    'taxonomy_term__press_centre' => array(
+      'variables' => array(),
+      'template' => 'taxonomy-term--press-centre',
+    ),
+    'site_press_centre_taxonomy_term' => array(
+      'variables' => array('view' => NULL, 'rows' => NULL),
+    ),
+    'node__press_centre' => array(
+      'variables' => array(),
+      'template' => 'node--press-centre',
+    ),
+    'site_press_centre_materials' => array(
+      'variables' => array('node' => NULL),
+      'template' => 'site-press-centre-materials',
+    ),
+  );
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function site_press_centre_page_attachments(array &$attachments) {
+  $config = \Drupal::config('site_press_centre.settings');
+  $current_path = \Drupal::service('path.current')->getPath();
+  if (strpos($current_path, "/" . $config->get('url')) >= 0) {
+    $attachments['#attached']['library'][] = 'site_press_centre/module';
+  }
+}
+
+/**
+ * Prepares variables for node--press-centre.html.twig template.
+ *
+ * @param array $variables
+ */
+function template_preprocess_node__press_centre(&$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+
+  // Provide a distinct $teaser boolean.
+  $variables['teaser'] = $variables['view_mode'] == 'teaser';
+  $variables['node'] = $variables['elements']['#node'];
+
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+
+  $variables['date'] = \Drupal::service('date.formatter')->format($node->getCreatedTime(), 'short');
+  unset($variables['elements']['created']);
+
+  $variables['author_name'] = drupal_render($variables['elements']['uid']);
+  unset($variables['elements']['uid']);
+
+  $variables['url'] = $node->url('canonical', array(
+    'language' => $node->language(),
+  ));
+  $variables['label'] = $variables['elements']['title'];
+  unset($variables['elements']['title']);
+
+  // The 'page' variable is set to TRUE in two occasions:
+  //   - The view mode is 'full' and we are on the 'node.view' route.
+  //   - The node is in preview and view mode is either 'full' or 'default'.
+  $variables['page'] = ($variables['view_mode'] == 'full' && (node_is_page($node)) || (isset($node->in_preview) && in_array($node->preview_view_mode, array('full', 'default'))));
+
+  // Helpful $content variable for templates.
+  $variables += array('content' => array());
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+
+  // Дополнительная информация.
+  $node_type = $node->type->entity;
+  $variables['author_attributes'] = new Attribute();
+  $variables['display_submitted'] = $node_type->displaySubmitted();
+  if ($variables['display_submitted']) {
+    if (theme_get_setting('features.node_user_picture')) {
+      $variables['author_picture'] = user_view($node->getOwner(), 'compact');
+    }
+  }
+
+  // Add article ARIA role.
+  $variables['attributes']['role'] = 'article';
+
+  // Дополнительные параметры полей.
+  $field = $node->get('field_summary_view_page')->getString();
+  $variables['field_summary_view_page'] = (int) $field;
+
+  $field = $node->get('field_image_view_teaser')->getString();
+  $variables['field_image_view_teaser'] = (int) $field;
+
+  $field = $node->get('field_image_view_page')->getString();
+  $variables['field_image_view_page'] = (int) $field;
+
+  // Подгружает связанные новости.
+  $renderData = array(
+    '#theme' => 'site_press_centre_materials',
+    '#node' => $node,
+  );
+  $variables['site_press_centre_materials'] = \Drupal::service('renderer')->render($renderData, FALSE);
+
+  $image_uri = NULL;
+  $fieldName = 'field_image';
+  if ($node->hasField($fieldName)) {
+    try {
+      $field = $node->{$fieldName};
+      if ($field && $field->target_id) {
+        $file = \Drupal\file\Entity\File::load($field->target_id);
+        if ($file) {
+          $image_uri = $file->getFileUri();
+        }
+      }
+    } catch (\Exception $e) {
+      \Drupal::logger('get_image_uri')->notice($e->getMessage(), []);
+    }
+  }
+  $variables['image_uri'] = $image_uri;
+}
+
+/**
+ * Prepares variables for site-press-centre-materials.html.twig template.
+ *
+ * @param array $variables
+ */
+function template_preprocess_site_press_centre_materials(&$variables) {
+  $database = Database::getConnection();
+  $node = $variables['node'];
+
+  // Перечень материалов.
+  $query = $database->select('node__field_node', 'n');
+  $query->fields('n', array('field_node_target_id'));
+  $query->condition('n.bundle', 'site_press_centre');
+  $query->condition('n.entity_id', $node->id());
+  $result = $query->execute();
+
+  $view_builder = \Drupal::entityManager()->getViewBuilder('node');
+  $variables['nodes_links_teaser'] = [];
+  foreach ($result as $row) {
+    $node = Node::load($row->field_node_target_id);
+
+    $variables['nodes_links_teaser'][$node->id()]['node'] = $node;
+    $variables['nodes_links_teaser'][$node->id()]['title'] = $node->getTitle();
+    $variables['nodes_links_teaser'][$node->id()]['created'] = \Drupal::service('date.formatter')->format($node->getCreatedTime(), 'short');
+
+    // Путь до node.
+    $path = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id());
+    $variables['nodes_links_teaser'][$node->id()]['path'] = $path;
+  }
+}
+
+/**
+ * Prepares variables for site-press-centre-taxonomy-term template.
+ *
+ * Template: site-press-centre-taxonomy-term.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - view: The view object.
+ *   - rows: An array of row items. Each row is an array of content.
+ */
+function template_preprocess_site_press_centre_taxonomy_term(&$variables) {
+  template_preprocess_views_view_unformatted($variables);
+}

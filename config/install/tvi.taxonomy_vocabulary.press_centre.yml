@@ -1,0 +1,8 @@
+enable_override: 1
+view: taxonomy_term_site_press_centre
+view_display: default
+inherit_settings: 1
+pass_arguments: 0
+_core:
+  default_config_hash: euMW5bBbi6Mwe0PyzVuVZJxa0fTV4QgIRAPuUIKsSoA
+langcode: ru

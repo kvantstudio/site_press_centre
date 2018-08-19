@@ -1,0 +1,5 @@
+module:
+  version: VERSION
+  css:
+    layout:
+      css/site-press-centre.module.css: {}
