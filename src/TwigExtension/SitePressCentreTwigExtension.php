@@ -45,7 +45,7 @@ class SitePressCentreTwigExtension extends \Twig_Extension {
     $db = \Drupal::database();
     $query = $db->select('node_field_data', 'n');
     $query->condition('n.status', 1);
-    $query->condition('n.type', 'site_press_centre');
+    $query->condition('n.type', 'press_centre');
     $query->fields('n', array('nid'));
     $query->orderBy('n.created', 'DESC');
     $query->range($id, 1);
